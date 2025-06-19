@@ -1,4 +1,5 @@
-# 🟢 The Button-DODANIE ZMIANY!!!
+# 🟢 The Button-DODANIE ZMIANY!!!!!!!!!!
+# zmiany
 
 Prosta aplikacja w Django z jednym przyciskiem `Ping`, który wysyła zapytanie do backendu i wyświetla odpowiedź w przeglądarce.
 
