@@ -120,11 +120,39 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Show environment variables
+        env:
+          ENV_NAME:  ${{ vars.ENVIRONMENT_NAME || 'development' }}
+          TOKEN_MSG: ${{ secrets.DEPLOY_TOKEN && '***' || 'Not set' }}
         run: |
-          echo "Deploying to ${{ vars.ENVIRONMENT_NAME }} environment"
-          echo "Using token: ${{ secrets.DEPLOY_TOKEN != '' && '***' || 'Not set' }}"
+          echo "Deploying to ${ENV_NAME} environment"
+          echo "Using token: ${TOKEN_MSG}"
 
       - name: Mock deployment
         run: |
-          echo "Starting deployment to development envi
+          echo 'Starting deployment to development environment...'
+          sleep 5
+          echo 'Deployment to development environment completed!'
+
+  deploy-to-production:
+    needs: deploy-to-dev
+    runs-on: ubuntu-latest
+    environment: production
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Show environment variables
+        env:
+          ENV_NAME:  ${{ vars.ENVIRONMENT_NAME || 'production' }}
+          TOKEN_MSG: ${{ secrets.DEPLOY_TOKEN && '***' || 'Not set' }}
+        run: |
+          echo "Deploying to ${ENV_NAME} environment"
+          echo "Using token: ${TOKEN_MSG}"
+
+      - name: Mock deployment
+        run: |
+          echo 'Starting deployment to production environment...'
+          sleep 10
+          echo 'Deployment to production environment completed!'
 
